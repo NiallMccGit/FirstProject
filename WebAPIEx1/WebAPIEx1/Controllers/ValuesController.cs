@@ -7,23 +7,31 @@ using System.Web.Http;
 
 namespace WebAPIEx1.Controllers
 {
+    [RoutePrefix("api/values")]
     public class ValuesController : ApiController
     {
         // GET api/values
+        [Route("GetValues")]
+        // http://localhost:63129/api/values/getvalues
         public IEnumerable<string> Get()
         {
             return new string[] { "value1", "value2" };
         }
 
         // GET api/values/5
+        [Route("GetVal")]
+        // http://localhost:63129/api/values/getval?id=1
         public string Get(int id)
         {
-            return "value";
+            return "value" + id.ToString();
         }
 
         // POST api/values
-        public void Post([FromBody]string value)
+        [Route("PostVal")]
+        public HttpResponseMessage Post([FromBody]string value)
         {
+            string val = value;
+            return new HttpResponseMessage() { StatusCode = HttpStatusCode.Created };
         }
 
         // PUT api/values/5
